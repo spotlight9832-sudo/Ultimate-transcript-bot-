@@ -1,6 +1,6 @@
 [Unit]
 Description=Telegram Transcript Bot
-Documentation=https://github.com/yourusername/transcript-bot
+Documentation=https://github.com/spotlight9832-sudo/Ultimate-transcript-bot-
 After=network.target mongod.service
 Wants=mongod.service
 
