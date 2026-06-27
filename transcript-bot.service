@@ -1,0 +1,35 @@
+[Unit]
+Description=Telegram Transcript Bot
+Documentation=https://github.com/yourusername/transcript-bot
+After=network.target mongod.service
+Wants=mongod.service
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/transcript-bot
+
+# Load environment variables from .env
+EnvironmentFile=/home/ubuntu/transcript-bot/.env
+
+# Run the bot
+ExecStart=/home/ubuntu/transcript-bot/venv/bin/python bot.py
+
+# Restart policy
+Restart=always
+RestartSec=10
+StartLimitInterval=200
+StartLimitBurst=5
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=transcript-bot
+
+# Security hardening
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target
