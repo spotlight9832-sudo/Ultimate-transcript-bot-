@@ -1,0 +1,27 @@
+# ─── Telegram Bot Framework ───────────────────────────────────────────────────
+pyrogram==2.0.106
+TgCrypto==1.2.5
+
+# ─── MongoDB Async Driver ──────────────────────────────────────────────────────
+motor==3.4.0
+pymongo==4.7.2
+
+# ─── Whisper (faster-whisper uses CTranslate2 backend — much faster than openai-whisper) ──
+faster-whisper==1.0.3
+ctranslate2>=4.0.0
+
+# ─── Audio/ML Dependencies ────────────────────────────────────────────────────
+torch>=2.0.0          # Required by faster-whisper
+torchaudio>=2.0.0
+numpy>=1.24.0
+
+# ─── Translation (Optional — for non-English target languages) ────────────────
+# argostranslate provides offline translation for 50+ language pairs
+argostranslate==1.9.6
+
+# ─── Environment Variables ────────────────────────────────────────────────────
+python-dotenv==1.0.1
+
+# ─── Utilities ────────────────────────────────────────────────────────────────
+aiofiles==23.2.1      # Async file I/O
+humanize==4.9.0       # Human-readable sizes/durations
