@@ -1,0 +1,62 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Transcript Bot — Docker Compose
+# Run with: docker compose up -d
+# ─────────────────────────────────────────────────────────────────────────────
+
+version: "3.9"
+
+services:
+
+  # ── Bot Service ─────────────────────────────────────────────────────────────
+  bot:
+    build: .
+    container_name: transcript_bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./downloads:/app/downloads     # Persistent download storage
+      - ./outputs:/app/outputs         # Persistent output storage
+      - ./logs:/app/logs               # Persistent logs
+      - ./temp:/app/temp               # Temp files
+      - whisper_cache:/app/.cache      # Whisper model cache (avoids re-download)
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - bot_network
+    environment:
+      # Override MONGO_URI to use Docker service name
+      - MONGO_URI=mongodb://mongodb:27017
+
+  # ── MongoDB Service ─────────────────────────────────────────────────────────
+  mongodb:
+    image: mongo:7.0
+    container_name: transcript_mongodb
+    restart: unless-stopped
+    volumes:
+      - mongodb_data:/data/db          # Persistent database storage
+    networks:
+      - bot_network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    # Uncomment to expose MongoDB port (only for external access)
+    # ports:
+    #   - "27017:27017"
+
+# ── Named Volumes ─────────────────────────────────────────────────────────────
+volumes:
+  mongodb_data:
+    driver: local
+  whisper_cache:
+    driver: local
+
+# ── Networks ──────────────────────────────────────────────────────────────────
+networks:
+  bot_network:
+    driver: bridge
+    
