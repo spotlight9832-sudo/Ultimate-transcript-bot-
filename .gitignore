@@ -1,0 +1,45 @@
+# ── Secrets (NEVER commit these) ─────────────────────────────────────────────
+.env
+*.session
+*.session-journal
+
+# ── Runtime Directories ───────────────────────────────────────────────────────
+downloads/
+outputs/
+temp/
+logs/
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+.Python
+venv/
+env/
+.venv/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── ML Model Cache ────────────────────────────────────────────────────────────
+.cache/
+*.pt
+*.bin
+*.onnx
+
+# ── IDEs ──────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# ── Docker ────────────────────────────────────────────────────────────────────
+# (docker-compose.yml IS committed — only override files are ignored)
+docker-compose.override.yml
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+Thumbs.db
+ehthumbs.db
